@@ -1,10 +1,8 @@
-import plotly.express as px
-
-dados_x = ['2018', '2019', '2020', '2021']
-dados_y = [10, 20, 5, 35]
-
-fig = px.line (x=dados_desempenho1, y=dados_desempenho2)
-fig.show()
-
-# fiz um pequeno teste ?
-# arrasou 
+Jogos,	França - Posse de Bola,	França - Gol,	França - Passes
+1,	56%	1, 672
+2, 44%,	1, 437
+3, 56%,	0, 566
+4, 48%,	3, 481
+5, 36%,	2, 310
+6, 34%,	2, 307
+7, 40%,	3, 419
