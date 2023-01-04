@@ -7,3 +7,4 @@ fig = px.line (x=dados_desempenho1, y=dados_desempenho2)
 fig.show()
 
 # fiz um pequeno teste ?
+# arrasou 
