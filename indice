@@ -1,3 +1,16 @@
 import pandas as pd
 import plotly.express as px
-df = pd.read_csv('https://raw.githubusercontent.com/Acsa01/World-Cup-2022---Fran-a-e-Argentina/main/Fifa_2022.csv')
+
+df_world = pd.read_csv('https://raw.githubusercontent.com/Acsa01/World-Cup-2022---Fran-a-e-Argentina/main/Fifa_2022.csv')
+
+df_world.head()
+
+# Criando gráfico  * Pequenas dúvidas.
+
+dados_x = ['Argentia', 'França', '2020', '2021']
+dados_y = [10, 20, 5, 35]
+
+fig = px.line(x= dados_x, y = dados_y, title = 'Gols?', width = 600, height = 600, line_shape='spline' )
+fig.update_yaxes(title = 'Gols', title_font_color = 'Black')
+
+fig.show()
