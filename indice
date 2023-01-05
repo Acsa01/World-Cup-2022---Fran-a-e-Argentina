@@ -1,0 +1,3 @@
+import pandas as pd
+import plotly.express as px
+df = pd.read_csv('https://raw.githubusercontent.com/Acsa01/World-Cup-2022---Fran-a-e-Argentina/main/Fifa_2022.csv')
