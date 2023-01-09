@@ -2,15 +2,50 @@ import pandas as pd
 import plotly.express as px
 
 df_world = pd.read_csv('https://raw.githubusercontent.com/Acsa01/World-Cup-2022---Fran-a-e-Argentina/main/Fifa_2022.csv')
+lista = []
+lista = df_world.values
+print(lista)
 
-df_world.head()
+total_golsA = 0
+total_jogosA = 0
+total_golsF = 0
+total_jogosF = 0
 
-# Criando gráfico  * Pequenas dúvidas.
 
-dados_x = ['Argentia', 'França', '2020', '2021']
-dados_y = [10, 20, 5, 35]
+for jogo in lista:
+  if jogo[0] == 'ARGENTINA':
+    total_jogosA += 1
+    total_golsA += jogo[5]
+  elif jogo[1] == 'ARGENTINA':
+    total_jogosA += 1
+    total_golsA += jogo[6]
 
-fig = px.line(x= dados_x, y = dados_y, title = 'Gols?', width = 600, height = 600, line_shape='spline' )
+for jogo in lista:
+  if jogo[0] == 'FRANCE':
+    total_jogosF += 1
+    total_golsF += jogo[5]
+  elif jogo[1] == 'FRANCE':
+    total_jogosF += 1
+    total_golsF += jogo[6]
+
+
+mediaA = total_golsA / total_jogosA  # a media temos que converter 
+mediaF = total_golsF / total_jogosF  #que converter para duas casas decimais.
+
+print(mediaA, mediaF)
+
+print(total_jogos)
+print(total_gols)
+
+
+# Criando gráfico
+
+#Argentina
+dados_x = ['Argentina', 'França']
+dados_y = [total_golsA, total_golsF]
+#França
+
+fig = px.bar(x= dados_x, y = dados_y, title = 'Desempenho Argentina VS França')
 fig.update_yaxes(title = 'Gols', title_font_color = 'Black')
 
 fig.show()
