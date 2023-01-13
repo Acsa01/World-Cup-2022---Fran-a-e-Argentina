@@ -1,23 +1,95 @@
 import pandas as pd
 import plotly.express as px
+import numbers
 
-df_world = pd.read_csv('https://raw.githubusercontent.com/Acsa01/World-Cup-2022---Fran-a-e-Argentina/main/Fifa_2022.csv')
+df= pd.read_csv('https://raw.githubusercontent.com/Acsa01/World-Cup-2022---Fran-a-e-Argentina/main/Fifa_2022.csv')
+df.head()
+print(df.shape)
 
-# Filtrando os dados
+#Seleciona linhas de interesse num dataframe
+#recebe dataframe e o nome do time de interesse
+#retorna um dataframe somente com as linhas relativas ao time de interesse
+# def extrai_jogos(df, team):
+#   df_filtrado = []
+#   for jogo in possesion:
+#     if(jogo['team1'] == team) | (jogo['team2'] == team):
 
-dados_filtrados = (df_world['team1'] == 'ARGENTINA') | (df_world['team2'] == 'ARGENTINA')
-print("Jogos da Argentina: ")
-print(df_world[dados_filtrados])
+      #insere jogo em df_filtrado.
+# return df_filtrad
+posicao_argentina = []
+time1 = list(df['team1'])
+time2 = list(df['team2'])
+for i in range(len(time1)):
+  if time1[i] == 'ARGENTINA':
+    posicao_argentina.append(i)
+for j in posicao_argentina:
+  if time2[j] == 'FRANCE':
+    jogoargefran = j
+    break #pra acabar com o loop
+posse_da_argentina = int(df['possession team1'][jogoargefran][:-1])
+posse_da_franca = int(df['possession team2'][jogoargefran][:-1])
+contestacao = int(df['possession in contest'][jogoargefran][:-1])
+print(type(posse_da_argentina), posse_da_argentina)
+print(type(posse_da_franca), posse_da_franca)
+print(type(contestacao), contestacao)
 
-dados_filtradosF = (df_world['team1'] == 'FRANCE') | (df_world['team2'] == 'FRANCE')
-print("Jogas da Franca: " )
-print(df_world[dados_filtradosF])
+posicao_argentina_time1 = []
+posicao_argentina_time2 = []
+posicao_franca_time1 = []
+posicao_franca_time2 = []
+time1 = list(df['team1'])
+time2 = list(df['team2'])
+for i in range(len(time1)):
+  if time1[i] == 'ARGENTINA':
+    posicao_argentina_time1.append(i)
+for i in range(len(time2)):
+  if time2[i] == 'ARGENTINA':
+    posicao_argentina_time2.append(i)
+for i in range(len(time1)):
+  if time1[i] == 'FRANCE':
+    posicao_franca_time1.append(i)
+for i in range(len(time2)):
+  if time2[i] == 'FRANCE':
+    posicao_franca_time2.append(i)
+posicoes_argentina = sorted(posicao_argentina_time1 + posicao_argentina_time2)
+posicoes_franca = sorted(posicao_franca_time1 + posicao_franca_time2)
+posses_de_bola_argentina = []
+posses_de_bola_franca = []
+for i in posicoes_argentina:
+  if i in posicao_argentina_time1:
+    posses_de_bola_argentina.append(int(df['possession team1'][i][:-1]))
+  if i in posicao_argentina_time2:
+    posses_de_bola_argentina.append(int(df['possession team2'][i][:-1]))
+for i in posicoes_franca:
+  if i in posicao_franca_time1:
+    posses_de_bola_franca.append(int(df['possession team1'][i][:-1]))
+  if i in posicao_franca_time2:
+    posses_de_bola_franca.append(int(df['possession team2'][i][:-1]))
 
+gols_argentina = sorted(posicao_argentina_time1 + posicao_argentina_time2) #pegando posições
+gols_franca = sorted(posicao_franca_time1 + posicao_franca_time2)
+gol_argentina = [] # gols em si
+gol_franca = []
+for i in gols_argentina:
+  if i in posicao_argentina_time1:
+    gol_argentina.append(int(df['number of goals team1'][i]))
+  if i in posicao_argentina_time2:
+    gol_argentina.append(int(df['number of goals team2'][i]))
+for i in gols_franca:
+  if i in posicao_franca_time1:
+    gol_franca.append(int(df['number of goals team1'][i]))
+  if i in posicao_franca_time2:
+    gol_franca.append(int(df['number of goals team2'][i]))
+x1 = ['Posses Argentina Jogo 1', 'Posses França Jogo 1','Posses Argentina Jogo 2', 'Posses França Jogo 2','Posses Argentina Jogo 3', 'Posses França Jogo 3','Posses Argentina Jogo 4', 'Posses França Jogo 4','Posses Argentina Jogo 5', 'Posses França Jogo 5','Posses Argentina Jogo 6', 'Posses França Jogo 6','Posses Argentina Jogo 7', 'Posses França Jogo 7']
+x2 = ['Gols Argentina Jogo 1', 'Gols França Jogo 1','Gols Argentina Jogo 2', 'Gols França Jogo 2','Gols Argentina Jogo 3', 'Gols França Jogo 3','Gols Argentina Jogo 4', 'Gols França Jogo 4','Gols Argentina Jogo 5', 'Gols França Jogo 5','Gols Argentina Jogo 6', 'Gols França Jogo 6','Gols Argentina Jogo 7', 'Gols França Jogo 7']
+y1 = []
+for i in range(7):
+  y1.append(posses_de_bola_argentina[i])
+  y1.append(posses_de_bola_franca[i])
+y2 = []
+for i in range(7):
+  y2.append(gol_argentina[i])
+  y2.append(gol_franca[i])
+ 
+fig = px.bar()
 
-
-
-
-fig = px.bar(x= dados_x, y = dados_y, title = 'Desempenho Argentina VS França')
-fig.update_yaxes(title = 'Gols', title_font_color = 'Black')
-
-fig.show()
