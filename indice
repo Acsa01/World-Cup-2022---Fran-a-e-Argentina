@@ -1,18 +1,12 @@
 import pandas as pd
 import plotly.express as px
 import numbers
+import plotly.graph_objects as go
 
 df= pd.read_csv('https://raw.githubusercontent.com/Acsa01/World-Cup-2022---Fran-a-e-Argentina/main/Fifa_2022.csv')
 df.head()
 print(df.shape)
 
-#Seleciona linhas de interesse num dataframe
-#recebe dataframe e o nome do time de interesse
-#retorna um dataframe somente com as linhas relativas ao time de interesse
-# def extrai_jogos(df, team):
-#   df_filtrado = []
-#   for jogo in possesion:
-#     if(jogo['team1'] == team) | (jogo['team2'] == team):
 
       #insere jogo em df_filtrado.
 # return df_filtrad
@@ -91,5 +85,7 @@ for i in range(7):
   y2.append(gol_argentina[i])
   y2.append(gol_franca[i])
  
-fig = px.bar()
-
+fig2 = px.bar(x=[y1, y2], template= 'plotly_dark', labels= {
+    
+})
+fig2.show()
