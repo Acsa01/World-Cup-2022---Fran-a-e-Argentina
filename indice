@@ -8,8 +8,7 @@ df.head()
 print(df.shape)
 
 
-      #insere jogo em df_filtrado.
-# return df_filtrad
+
 posicao_argentina = []
 time1 = list(df['team1'])
 time2 = list(df['team2'])
@@ -31,8 +30,8 @@ posicao_argentina_time1 = []
 posicao_argentina_time2 = []
 posicao_franca_time1 = []
 posicao_franca_time2 = []
-time1 = list(df['team1'])
-time2 = list(df['team2'])
+#time1 = list(df['team1'])
+#time2 = list(df['team2'])
 for i in range(len(time1)):
   if time1[i] == 'ARGENTINA':
     posicao_argentina_time1.append(i)
@@ -74,6 +73,10 @@ for i in gols_franca:
     gol_franca.append(int(df['number of goals team1'][i]))
   if i in posicao_franca_time2:
     gol_franca.append(int(df['number of goals team2'][i]))
+    
+    
+# Gráfico
+
 x1 = ['Posses Argentina Jogo 1', 'Posses França Jogo 1','Posses Argentina Jogo 2', 'Posses França Jogo 2','Posses Argentina Jogo 3', 'Posses França Jogo 3','Posses Argentina Jogo 4', 'Posses França Jogo 4','Posses Argentina Jogo 5', 'Posses França Jogo 5','Posses Argentina Jogo 6', 'Posses França Jogo 6','Posses Argentina Jogo 7', 'Posses França Jogo 7']
 x2 = ['Gols Argentina Jogo 1', 'Gols França Jogo 1','Gols Argentina Jogo 2', 'Gols França Jogo 2','Gols Argentina Jogo 3', 'Gols França Jogo 3','Gols Argentina Jogo 4', 'Gols França Jogo 4','Gols Argentina Jogo 5', 'Gols França Jogo 5','Gols Argentina Jogo 6', 'Gols França Jogo 6','Gols Argentina Jogo 7', 'Gols França Jogo 7']
 y1 = []
@@ -87,5 +90,13 @@ for i in range(7):
  
 fig2 = px.bar(x=[y1, y2], template= 'plotly_dark', labels= {
     
+    
 })
 fig2.show()
+    
+    
+    
+    
+    
+    
+    
