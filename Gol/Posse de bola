@@ -1,0 +1,126 @@
+import pandas as pd
+import plotly.express as px
+import numbers
+import plotly.graph_objects as go
+import plotly.graph_objects as go
+
+
+df= pd.read_csv('https://raw.githubusercontent.com/Acsa01/World-Cup-2022---Fran-a-e-Argentina/main/Fifa_2022.csv')
+df.head()
+print(df.shape)
+
+
+#insere jogo em df_filtrado
+# return df_filtrado
+
+posicao_argentina = [] #criando uma lista vazia
+time1 = list(df['team1']) #
+time2 = list(df['team2'])
+for i in range(len(time1)): 
+  if time1[i] == 'ARGENTINA':
+    posicao_argentina.append(i)
+for j in posicao_argentina: 
+  if time2[j] == 'FRANCE':
+    jogoargefran = j
+    break #pra acabar com o loop
+
+posse_da_argentina = int(df['possession team1'][jogoargefran][:-1])
+posse_da_franca = int(df['possession team2'][jogoargefran][:-1])
+contestacao = int(df['possession in contest'][jogoargefran][:-1])
+print(type(posse_da_argentina), posse_da_argentina)
+print(type(posse_da_franca), posse_da_franca)
+print(type(contestacao), contestacao)
+
+posicao_argentina_time1 = []
+posicao_argentina_time2 = []
+posicao_franca_time1 = []
+posicao_franca_time2 = []
+time1 = list(df['team1'])
+time2 = list(df['team2'])
+
+for i in range(len(time1)):
+  if time1[i] == 'ARGENTINA':
+    posicao_argentina_time1.append(i)
+for i in range(len(time2)):
+  if time2[i] == 'ARGENTINA':
+    posicao_argentina_time2.append(i)
+for i in range(len(time1)):
+  if time1[i] == 'FRANCE':
+    posicao_franca_time1.append(i)
+for i in range(len(time2)):
+  if time2[i] == 'FRANCE':
+    posicao_franca_time2.append(i)
+
+posicoes_argentina = sorted(posicao_argentina_time1 + posicao_argentina_time2)
+posicoes_franca = sorted(posicao_franca_time1 + posicao_franca_time2)
+posses_de_bola_argentina = []
+posses_de_bola_franca = []
+
+for i in posicoes_argentina: # pegando os posse de bola de cada time
+  if i in posicao_argentina_time1:
+    posses_de_bola_argentina.append(int(df['possession team1'][i][:-1]))
+  if i in posicao_argentina_time2:
+    posses_de_bola_argentina.append(int(df['possession team2'][i][:-1]))
+for i in posicoes_franca:
+  if i in posicao_franca_time1:
+    posses_de_bola_franca.append(int(df['possession team1'][i][:-1]))
+  if i in posicao_franca_time2:
+    posses_de_bola_franca.append(int(df['possession team2'][i][:-1]))
+
+gols_argentina = sorted(posicao_argentina_time1 + posicao_argentina_time2) #pegando posições
+gols_franca = sorted(posicao_franca_time1 + posicao_franca_time2)# sorte função que ordena
+gol_argentina = [] # gols em si
+gol_franca = []
+
+for i in gols_argentina: # pegando os gols
+  if i in posicao_argentina_time1:
+    gol_argentina.append(int(df['number of goals team1'][i]))
+  if i in posicao_argentina_time2:
+    gol_argentina.append(int(df['number of goals team2'][i]))
+for i in gols_franca:
+  if i in posicao_franca_time1:
+    gol_franca.append(int(df['number of goals team1'][i]))
+  if i in posicao_franca_time2:
+    gol_franca.append(int(df['number of goals team2'][i]))
+
+# Grafico dos gols
+    
+jogos = ['1 jogo','2 jogo', '3 jogo', '4 jogo', '5 jogo', '6 jogo', '7 jogo']
+
+fig = go.Figure()
+fig.add_trace(go.Bar(
+    x=jogos,
+    y=gol_franca,
+    name='Gol da França',
+    marker_color='indianred'
+))
+fig.add_trace(go.Bar(
+    x=jogos,
+    y=gol_argentina,
+    name='Gol da Argentina',
+    marker_color='lightsalmon'
+))
+
+# Here we modify the tickangle of the xaxis, resulting in rotated labels.
+fig.update_layout(barmode='group', xaxis_tickangle=-45)
+fig.show()
+
+jogos = ['1 jogo','2 jogo', '3 jogo', '4 jogo', '5 jogo', '6 jogo', '7 jogo']
+
+fig = go.Figure()
+fig.add_trace(go.Bar(
+    x=jogos,
+    y=posses_de_bola_franca,
+    name='Posse de Bola França',
+    marker_color='indianred'
+))
+fig.add_trace(go.Bar(
+    x=jogos,
+    y=posses_de_bola_argentina,
+    name='Posse de bola Argentina',
+    marker_color='lightsalmon'
+))
+
+# Here we modify the tickangle of the xaxis, resulting in rotated labels.
+fig.update_layout(barmode='group', xaxis_tickangle=-45)
+fig.show()
